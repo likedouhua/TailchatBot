@@ -47,6 +47,7 @@ class TailchatBot {
         for (const sLogicName of lLogicName) {
             try {
                 let sPath = path.join(__dirname, 'logic', sLogicName, sLogicName + 'Logic');
+                console.log(sPath);
                 const BotLogic = require(sPath).BotLogic;
                 if (BotLogic) {
                     const oLogic = new BotLogic(sLogicName, {
@@ -77,7 +78,7 @@ class TailchatBot {
         //     __v: 0
         //   }
         if (message.author != this.client.userId) {
-            for (const oBotLogic of this.lBotLogic) {
+            for (const oBotLogic of this.lBotLogic) { 
                 oBotLogic.onMessage(message);
             }
         }
@@ -102,6 +103,10 @@ class TailchatBot {
                 meta: meta,
             })
         }
+    }
+
+    postMessage(response){
+        console.log(response);
     }
 }
 

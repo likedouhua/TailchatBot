@@ -4,7 +4,7 @@
         {
             "appId" : "tc_67595e0a1362dfa4676242da",
             "appSecret" : "rL_2vGwnC1gOER1Hsm-nB0HuKkO-TZz_",
-            "logicList" : ["taskList", "personalAssistant"]
+            "logicList" : ["taskList", "personalAssistant","postResponse"]
         }
     ]
 }

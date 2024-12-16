@@ -30,23 +30,10 @@ app.use(BodyParser());
 
 // 定义一个 POST 路由
 router.post('/submit', (ctx) => {
-  const { enableGroup, id, message, type } = ctx.request.body;
-  if (type === '') {
-    analyticsData(enableGroup, id, message);
-  }
+  oTailchatBot.postMessage(ctx.response);
   ctx.status = 200; // 设置响应状态码
   ctx.body = 'POST request received'; // 设置响应体
 });
-
-// 定义动作 A
-function jenkinsMessage(enableGroup, id, message) {
-  //主动发送个人、或者群组消息
-  if (enableGroup) {
-
-  } else {
-
-  }
-}
 
 // 使用路由中间件
 app.use(router.routes()).use(router.allowedMethods());

@@ -1,0 +1,3 @@
+TailchatBot类，后续可以有多个Bot
+每个Bot有多个logic
+例如任务清单逻辑，私聊助理逻辑

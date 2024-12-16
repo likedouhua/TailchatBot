@@ -1,0 +1,6 @@
+{
+    "symbol" : "#",
+    "orderMap" : {
+        "获取ID" : "getID"
+    }
+}

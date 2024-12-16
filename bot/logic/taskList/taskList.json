@@ -1,0 +1,14 @@
+{
+    "symbol" : "#",
+    "orderMap" : {
+        "开启任务清单" : "open",
+        "关闭任务清单" : "close",
+        "创建任务" : "create",
+        "完成创建" : "finish",
+        "取消创建" : "cancel",
+        "任务清单" : "show",
+        "推送测试" : "toTest",
+        "完成任务" : "complete",
+        "帮帮我，机器人先生" : "help"
+    }
+}

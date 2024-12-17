@@ -29,8 +29,8 @@ const router = new Router();
 app.use(BodyParser());
 
 // 定义一个 POST 路由
-router.post('/submit', (ctx) => {
-  oTailchatBot.postMessage(ctx.response);
+router.post('/submit', async (ctx) => {
+  console.log(ctx.response);
   ctx.status = 200; // 设置响应状态码
   ctx.body = 'POST request received'; // 设置响应体
 });

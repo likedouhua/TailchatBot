@@ -2,8 +2,8 @@
     "url" : "http://192.168.2.201:11000/",
     "botList" : [
         {
-            "appId" : "tc_67595e0a1362dfa4676242da",
-            "appSecret" : "rL_2vGwnC1gOER1Hsm-nB0HuKkO-TZz_",
+            "appId" : "tc_675a8ac7fb4663c26ef82a26",
+            "appSecret" : "1M0zV3V5NDceCFjmMf2V5xHORbwqKUWu",
             "logicList" : ["taskList", "personalAssistant","postResponse"]
         }
     ]

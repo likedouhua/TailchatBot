@@ -30,10 +30,17 @@ app.use(BodyParser());
 
 // 定义一个 POST 路由
 router.post('/submit', async (ctx) => {
-  console.log(ctx.response);
+  const receivedMsg = ctx.request.body;
+  for (const oBotClient of tTailchatBot) {
+    if(oBotClient.type == received.type){
+      oBotClient.onPostMessage(receivedMsg);
+    }
+}
   ctx.status = 200; // 设置响应状态码
   ctx.body = 'POST request received'; // 设置响应体
 });
+
+
 
 // 使用路由中间件
 app.use(router.routes()).use(router.allowedMethods());

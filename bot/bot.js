@@ -1,6 +1,5 @@
 const tailchatSDK = require('tailchat-client-sdk');
 const TailchatWsClient = tailchatSDK.TailchatWsClient;
-const TailchatHTTPClient = tailchatSDK.TailchatHTTPClient;
 const path = require('path');
 
 class TailchatBot {
@@ -103,6 +102,12 @@ class TailchatBot {
                 plain: plain,
                 meta: meta,
             })
+        }
+    }
+
+    onPostMessage(receivedMsg){
+        for (const oBotLogic of this.lBotLogic) {
+            oBotLogic.onPostMessage(receivedMsg);
         }
     }
 }

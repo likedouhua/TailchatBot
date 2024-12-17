@@ -4,7 +4,8 @@
         {
             "appId" : "tc_675a8ac7fb4663c26ef82a26",
             "appSecret" : "1M0zV3V5NDceCFjmMf2V5xHORbwqKUWu",
-            "logicList" : ["taskList", "personalAssistant","postResponse"]
+            "logicList" : ["taskList", "personalAssistant","postResponse"],
+            "type":"jenkins"
         }
     ]
 }

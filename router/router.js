@@ -17,7 +17,7 @@ class RouterHandler {
   }
 
   initBot(postBotId){
-    this.bot = require("../serverBot").tTailchatBot[postBotId];
+    this.bot = global.tTailchatBot?.[postBotId];
   }
 
   initHandlers() {
@@ -42,7 +42,7 @@ class RouterHandler {
   }
 
   async processMessage(receivedMsg) {
-    const type = validateMessageType(receivedMsg); // 返回 'jenkins'/'redmine'/'default'
+    const type = this.validateMessageType(receivedMsg); // 返回 'jenkins'/'redmine'/'default'
     const message = await this.handlers[type].onPostMessage(receivedMsg);
     this.sendMessage(message);
   }

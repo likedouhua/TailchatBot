@@ -93,7 +93,7 @@ class TailchatBot {
     }
 
     sendMessage(converseId, groupId = null, content, plain = null, meta = null) {
-        console.log('sendMessage:', converseId, groupId, content, this.client && this.bConnect);
+        console.log(converseId, groupId = null, content, this.client && this.bConnect);
         if (this.client && this.bConnect) {
             this.client.sendMessage({
                 groupId: groupId,

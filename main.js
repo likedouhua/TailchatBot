@@ -1,23 +1,42 @@
-const { spawn } = require('child_process');
+const Koa = require('koa');
+const bodyParser = require('koa-bodyparser');
+const RouterHandler = require('./router/router').RouterHandler; // 导入单独的路由配置
+const app = new Koa();
 const path = require('path');
 
-// 获取每个脚本的完整路径
-const serverPostPath = path.resolve(__dirname, 'serverPost.js');
-const serverBotPath = path.resolve(__dirname, 'serverBot.js');
+console.log(path.join(path.resolve(), 'config', 'jsonConfig'));
+global.jsonConfig = require(path.join(path.resolve(), 'config', 'jsonConfig'));
+global.jsonData = require(path.join(path.resolve(), 'data', 'jsonData'));
 
-// 函数用于监听子进程并输出日志信息
-function runScript(scriptPath) {
-  const process = spawn('node', [scriptPath], { stdio: 'inherit' });
+const TailchatBot = require('./bot/bot').TailchatBot;
+var tTailchatBot = {};
+const oServerConfig = jsonConfig.getConfigSync('./config/serverBot.json');
 
-  process.on('error', (error) => {
-    console.error(`Failed to start script: ${scriptPath}\nError: ${error.message}`);
-  });
-
-  process.on('close', (code) => {
-    console.log(`Script ${scriptPath} exited with code ${code}`);
-  });
+if (oServerConfig) {
+    for (const oBotConfig of oServerConfig.botList) {
+        const oTailchatBot = new TailchatBot(oServerConfig.url, oBotConfig.appId, oBotConfig.appSecret, oBotConfig.disableMsgpack, oBotConfig.logicList);
+        tTailchatBot[oBotConfig.appId] = oTailchatBot;
+    }
+}
+else {
+    console.log('not found ./config/serverBot.json');
 }
 
-// 运行两个脚本
-runScript(serverBotPath);
-runScript(serverPostPath);
+if (!oServerConfig) {
+    console.log('not found serverBot.json');
+    process.exit(1);
+}
+
+app.use(bodyParser());
+
+// 使用外部定义的路由
+const router = new RouterHandler(oServerConfig,tTailchatBot);
+
+app.use(router.router.routes());
+app.use(router.router.allowedMethods());
+
+// 启动服务器
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server is listening on port ${PORT}`);
+});

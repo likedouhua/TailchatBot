@@ -5,11 +5,11 @@ const RedmineHandler = require('./handlers/RedmineHandler').RedmineHandler;
 const DefaultHandler = require('./handlers/DefaultHandler').DefaultHandler;
 
 class RouterHandler {
-  constructor(oServerConfig) {
+  constructor(oServerConfig,tTailchatBot) {
     this.router = new Router();
     this.initRouter(oServerConfig.callback);
     this.handlers = this.initHandlers();
-    this.tailchatBot = global.tTailchatBot[oServerConfig.postBotId];
+    this.bot = tTailchatBot[oServerConfig.postBotId];
   }
 
   initRouter(callbackUrl) {
@@ -55,7 +55,7 @@ class RouterHandler {
   }
 
   sendMessage(message){
-    this.tailchatBot.sendMessage(message.converseId, message.groupId, message.content,null,null);
+    this.bot.sendMessage(message.converseId, message.groupId, message.content,null,null);
   }
 }
 

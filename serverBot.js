@@ -12,3 +12,7 @@ for (const oBotConfig of oServerConfig.botList) {
     const oTailchatBot = new TailchatBot(oServerConfig.url, oBotConfig.appId, oBotConfig.appSecret, oBotConfig.disableMsgpack, oBotConfig.logicList);
     tTailchatBot[oBotConfig.appId] = oTailchatBot;
 }
+
+module.exports = {
+    tTailchatBot
+}

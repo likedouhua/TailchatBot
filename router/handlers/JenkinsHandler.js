@@ -23,7 +23,7 @@ class JenkinsHandler extends DefaultHandler {
     return message;
   }
 
-  _buildSendMessage(message, receivedMsg) {
+  _buildSendMessage(receivedMsg) {
     const tailmessage = {
       type: receivedMsg.type,
       //根据项目名转换为群组ID

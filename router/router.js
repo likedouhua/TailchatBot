@@ -1,8 +1,8 @@
 const Router = require('koa-router');
 const { jenkinsValidator, redmineValidator } = require('./validators');
-const JenkinsHandler = require('./handlers/JenkinsHandler');
-const RedmineHandler = require('./handlers/RedmineHandler');
-const DefaultHandler = require('./handlers/DefaultHandler');
+const JenkinsHandler = require('./handlers/JenkinsHandler').JenkinsHandler;
+const RedmineHandler = require('./handlers/RedmineHandler').RedmineHandler;
+const DefaultHandler = require('./handlers/DefaultHandler').DefaultHandler;
 
 class RouterHandler {
   constructor(oServerConfig) {

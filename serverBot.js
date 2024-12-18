@@ -14,3 +14,7 @@ if (oServerConfig) {
 else {
     console.log('not found serverBot.json');
 }
+
+module.exports = {
+    tTailchatBot
+}

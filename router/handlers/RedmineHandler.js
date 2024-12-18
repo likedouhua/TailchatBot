@@ -59,6 +59,7 @@ status
 }
 
 */
+const DefaultHandler = require('./DefaultHandler').DefaultHandler
 
 class RedmineHandler extends DefaultHandler {
   constructor() {
@@ -66,24 +67,24 @@ class RedmineHandler extends DefaultHandler {
     super();
   }
   
-  onPostMessage(receivedMsg) {
+  _onPostMessage(receivedMsg) {
     console.log('Processing Redmine message:', receivedMsg);
     // 实现Redmine消息的处理逻辑
     const messageContent = this.buildMsgContent(receivedMsg);
-    const message = buildSendMessage(messageContent);
-    return message;
+    const tailmessage = buildSendMessage(messageContent);
+    return tailmessage;
   }
 
-  buildSendMessage(messageContent) {
-    const message = {
+  _buildSendMessage(messageContent) {
+    const tailmessage = {
       //根据项目名转换为群组ID
       converseId: '',
       text: messageContent
     }
-    return message;
+    return tailmessage;
   }
 
-  buildMsgContent(redmineData) {
+  _buildMsgContent(redmineData) {
     const subject = redmineData.payload.issue.subject;
     const action = redmineData.payload.action;
     const author = redmineData.payload.journal.author.firstname;
@@ -91,8 +92,8 @@ class RedmineHandler extends DefaultHandler {
 
     const message_title = "[md] ## 工单推送[/md]";
     const message_subject = "[md] ####" + subject + "[/md]";
-    const message_author = "创建者：" + mdFormat_Blod(author);
-    const message_state = "状态：" + mdFormat_Blod(state);
+    const message_author = "创建者：" + super.mdFormat_Blod(author);
+    const message_state = "状态：" + super.mdFormat_Blod(state);
 
     const content = {
       message_title,

@@ -1,5 +1,5 @@
 {
-    "symbol" : "#",
+    "symbol" : "/",
     "orderMap" : {
         "开启清单" : "open",
         "关闭清单" : "close",
@@ -9,7 +9,7 @@
         "查看清单" : "show",
         "推测" : "toTest",
         "完成" : "complete",
-        "指令" : "help"
+        "帮助" : "help"
     },
     "reply" : {
         "openSuccess" : "新创建任务清单完成，请开始添加任务",

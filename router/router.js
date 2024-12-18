@@ -57,12 +57,12 @@ class RouterHandler {
     }
   }
 
-  sendMessage(message){
+  async sendMessage(message){
     if(message.converseId){
       try {
-        this.bot.sendMessage(message.converseId, message.groupId, message.content,null,null);
+        await this.bot.sendMessage(message.converseId, message.groupId, message.content,null,null);
     } catch (error) {
-        console.log(error);
+        console.error(error);
     }
     }
     console.log(message);

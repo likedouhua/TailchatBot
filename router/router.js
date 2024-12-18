@@ -7,14 +7,13 @@ const DefaultHandler = require('./handlers/DefaultHandler').DefaultHandler;
 class RouterHandler {
   constructor(oServerConfig) {
     this.router = new Router();
-    this.handlers = this.initHandlers();
     this.initRouter(oServerConfig.callback);
-    this.bot = this.initBot(oServerConfig.postBotId);
+    this.handlers = this.initHandlers();
+    this.initBot(oServerConfig.postBotId);
   }
 
   initRouter(callbackUrl) {
     this.router.post(callbackUrl, this.handlePostRequest.bind(this));
-    return this.router;
   }
 
   initBot(postBotId){

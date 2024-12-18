@@ -10,5 +10,20 @@
         "推送测试" : "toTest",
         "完成任务" : "complete",
         "帮帮我，机器人先生" : "help"
+    },
+    "reply" : {
+        "openSuccess" : "新创建任务清单完成",
+        "openFail" : "已存在任务清单，无法重复创建",
+        "closeSuccess" : "已关闭该任务清单",
+        "closeFail" : "这位更是重量级，任务还没清完呢",
+        "closeNotFound" : "都没有任务可做的，不要闹",
+        "createFail" : "存在未创建完成任务，请先取消创建\n欲速则不达",
+        "createSuccess" : "已创建任务",
+        "cancelSuccess" : "（不理他）" ,
+        "toTestSuccess" : "已推送任务测试，编号：",
+        "completeSucess" : "已完成任务，编号：",
+        "numIllegal" : "？你再看看？哪儿来的",
+        "help" : "当前指令集：",
+        "play" : "玩呢？"
     }
 }

@@ -1,51 +1,120 @@
 // 任务状态枚举
 const TaskStatus = {
-    INCOMPLETE: 0, // 未完成
-    PENDING_TEST: 1, // 待测试
-    COMPLETED: 2 // 已完成
+  UNFINISHED: 0, // 未完成
+  TOTEST: 1,     // 待测试
+  COMPLETED: 2   // 已完成
 };
 
 // 任务类
 class Task {
-  constructor(id, status, lastOperatedTime, descriptions = []) {
-    this.id = id; // 唯一编号
-    this.status = status; // 任务状态枚举值
-    this.lastOperatedTime = lastOperatedTime; // 上一次操作时间（排序用）
-    this.descriptions = descriptions; // 任务描述信息数组
+  constructor(id, status, lastOperatedTime = 0, descriptions = []) {
+    this.id = id;
+    this.status = status;
+    this.lastOperatedTime = lastOperatedTime;
+    this.descriptions = descriptions;
+  }
+
+  updateTime() {
+    this.lastOperatedTime = new Date().getTime();
+  }
+
+  // 将任务实例转换为纯对象
+  toJSON() {
+    return {
+      id: this.id,
+      status: this.status,
+      lastOperatedTime: this.lastOperatedTime,
+      descriptions: this.descriptions
+    };
   }
 }
 
 // 任务清单类
 class TaskList {
-  constructor(groupId, listId, tasks = []) {
-    this.groupId = groupId; // 群组id
-    this.listId = listId; // 任务清单唯一编号
-    this.tasks = tasks; // 任务类实例数组
+  constructor(sKey, lTask = []) {
+    this.sKey = sKey;
+    this.lTask = lTask;
   }
 
   // 添加任务
-  addTask(task) {
-    this.tasks.push(task);
+  addTask(lDesc) {
+    const oTask = new Task(this.lTask.length + 1, TaskStatus.UNFINISHED, 0, lDesc);
+    oTask.updateTime();
+    this.lTask.push(oTask);
   }
 
-  // 根据某个条件排序任务（例如：按上一次操作时间排序）
-  sortTasksByLastOperatedTime() {
-    this.tasks.sort((a, b) => new Date(a.lastOperatedTime) - new Date(b.lastOperatedTime));
+  toTest(iId) {
+    for (const oTask of this.lTask) {
+      if (oTask.id == iId) {
+        oTask.status = TaskStatus.TOTEST;
+        oTask.updateTime();
+        return true;
+      }
+    }
+    return false;
+  }
+
+  complete(iId) {
+    for (const oTask of this.lTask) {
+      if (oTask.id == iId) {
+        oTask.status = TaskStatus.COMPLETED;
+        oTask.updateTime();
+        return true;
+      }
+    }
+    return false;
+  }
+
+  // 将任务清单实例转换为纯对象
+  toJSON() {
+    return {
+      sKey : this.sKey,
+      lTask: this.lTask.map(task => task.toJSON())
+    };
+  }
+
+  // 从纯对象中恢复任务清单实例
+  static fromJSON(json) {
+    const lTask = json.lTask.map(taskJson => {
+      const task = new Task(taskJson.id, taskJson.status, taskJson.lastOperatedTime, taskJson.descriptions);
+      return task;
+    });
+    return new TaskList(json.skey, lTask);
+  }
+
+  // 计算任务数量
+  count() {
+    let tCount = {
+      [TaskStatus.UNFINISHED] : 0,
+      [TaskStatus.TOTEST] : 0,
+      [TaskStatus.COMPLETED] : 0,
+    }
+    for (const oTask of this.lTask) {
+      tCount[oTask.status]++;
+    }
+    return tCount;
+  }
+
+  getAllTask() {
+    let tTask = {
+      [TaskStatus.UNFINISHED] : [],
+      [TaskStatus.TOTEST] : [],
+      [TaskStatus.COMPLETED] : [],
+    }
+    for (const oTask of this.lTask) {
+      tTask[oTask.status].push(oTask);
+    }
+    for (const eTaskStatus in tTask) {
+      if (Object.prototype.hasOwnProperty.call(tTask, eTaskStatus)) {
+        const lTask = tTask[eTaskStatus];
+        lTask.sort((oTask1, oTask2) => oTask1.lastOperatedTime - oTask2.lastOperatedTime);
+      }
+    }
+    return tTask;
   }
 }
 
-// 示例使用
-// const task1 = new Task(1, TaskStatus.INCOMPLETE, new Date('2023-10-01T10:00:00'), ['描述1', '描述2']);
-// const task2 = new Task(2, TaskStatus.PENDING_TEST, new Date('2023-10-02T12:00:00'), ['描述3']);
-
-// const taskList = new TaskList('group1', 'list1');
-// taskList.addTask(task1);
-// taskList.addTask(task2);
-
-// taskList.sortTasksByLastOperatedTime();
-
-// console.log(taskList);
-
 module.exports = {
+  TaskStatus,
   TaskList,
 }

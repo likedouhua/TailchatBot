@@ -59,7 +59,11 @@ class RouterHandler {
 
   sendMessage(message){
     if(message.converseId){
-      this.bot.sendMessage(message.converseId, message.groupId, message.content,null,null);
+      try {
+        this.bot.sendMessage(message.converseId, message.groupId, message.content,null,null);
+    } catch (error) {
+        console.log(error);
+    }
     }
     console.log(message);
   }

@@ -6,7 +6,7 @@ class DefaultHandler {
   }
 
   onPostMessage(receivedMsg) {
-    this._onPostMessage(receivedMsg);
+    return this._onPostMessage(receivedMsg);
   }
 
   buildSendMessage(message) {

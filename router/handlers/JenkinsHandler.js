@@ -19,7 +19,6 @@ class JenkinsHandler extends DefaultHandler {
     console.log('Processing Jenkins message:', receivedMsg);
     const messageContent = this._buildMsgContent(receivedMsg);
     const message = this._buildSendMessage(receivedMsg,messageContent);
-    // 实现Jenkins消息的处理逻辑
     return message;
   }
 

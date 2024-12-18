@@ -9,9 +9,9 @@
 const DefaultHandler = require('./DefaultHandler').DefaultHandler
 
 class JenkinsHandler extends DefaultHandler {
-  constructor() {
+  constructor(sPath, tCallBack) {
+    super(sPath, tCallBack);
     console.log('JenkinsHandler constructor');
-    super();
   }
   
   // 处理消息

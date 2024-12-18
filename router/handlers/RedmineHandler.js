@@ -62,9 +62,9 @@ status
 const DefaultHandler = require('./DefaultHandler').DefaultHandler
 
 class RedmineHandler extends DefaultHandler {
-  constructor() {
+  constructor(sPath, tCallBack) {
+    super(sPath, tCallBack);
     console.log('RedmineHandler constructor');
-    super();
   }
   
   _onPostMessage(receivedMsg) {

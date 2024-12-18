@@ -1,6 +1,8 @@
 // handlers/DefaultHandler.js
 class DefaultHandler {
-  constructor(){
+  constructor(sPath, tCallBack) {
+    this.tCallBack = tCallBack;
+
     console.log("DefaultHandler constructor");
   }
   onPostMessage(receivedMsg) {

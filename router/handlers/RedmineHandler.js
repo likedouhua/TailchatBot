@@ -75,7 +75,7 @@ class RedmineHandler extends DefaultHandler {
     return tailmessage;
   }
 
-  buildSendMessage(messageContent) {
+  _buildSendMessage(messageContent) {
     const tailmessage = {
       //根据项目名转换为群组ID
       converseId: '',

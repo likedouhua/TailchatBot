@@ -3,6 +3,7 @@ const bodyParser = require('koa-bodyparser');
 const RouterHandler = require('./router/router').RouterHandler; // 导入单独的路由配置
 const app = new Koa();
 
+global.jsonConfig = require('./config/jsonConfig');
 const oServerConfig = jsonConfig.getConfigSync('./config/serverBot.json');
 if (!oServerConfig) {
     console.log('not found serverBot.json');

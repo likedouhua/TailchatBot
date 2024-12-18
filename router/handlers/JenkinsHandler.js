@@ -23,7 +23,7 @@ class JenkinsHandler extends DefaultHandler {
     return message;
   }
 
-  buildSendMessage(message, receivedMsg) {
+  _buildSendMessage(message, receivedMsg) {
     const tailmessage = {
       type: receivedMsg.type,
       //根据项目名转换为群组ID
@@ -33,7 +33,7 @@ class JenkinsHandler extends DefaultHandler {
     return tailmessage;
   }
 
-  buildMsgContent(jenkinsData) {
+  _buildMsgContent(jenkinsData) {
     const message_title = "[md] ## Jenkins推送[/md]";
     const message_content = jenkinsData.text.split('\n');
 

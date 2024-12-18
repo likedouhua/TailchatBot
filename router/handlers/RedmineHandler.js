@@ -70,8 +70,8 @@ class RedmineHandler extends DefaultHandler {
   _onPostMessage(receivedMsg) {
     console.log('Processing Redmine message:', receivedMsg);
     // 实现Redmine消息的处理逻辑
-    const messageContent = _buildMsgContent(receivedMsg);
-    const tailmessage = _buildSendMessage(messageContent);
+    const messageContent = this._buildMsgContent(receivedMsg);
+    const tailmessage = this._buildSendMessage(messageContent);
     return tailmessage;
   }
 

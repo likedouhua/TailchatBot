@@ -1,19 +1,20 @@
 const Router = require('koa-router');
 const { jenkinsValidator, redmineValidator } = require('./validators');
-const JenkinsHandler = require('./handlers/JenkinsHandler').JenkinsHandler;
-const RedmineHandler = require('./handlers/RedmineHandler').RedmineHandler;
-const DefaultHandler = require('./handlers/DefaultHandler').DefaultHandler;
+const JenkinsHandler = require('./handlers/JenkinsHandler');
+const RedmineHandler = require('./handlers/RedmineHandler');
+const DefaultHandler = require('./handlers/DefaultHandler');
 
 class RouterHandler {
   constructor(oServerConfig) {
     this.router = new Router();
-    this.initRouter(oServerConfig.callback);
     this.handlers = this.initHandlers();
-    this.initBot(oServerConfig.postBotId);
+    this.initRouter(oServerConfig.callback);
+    this.bot = this.initBot(oServerConfig.postBotId);
   }
 
   initRouter(callbackUrl) {
     this.router.post(callbackUrl, this.handlePostRequest.bind(this));
+    return this.router;
   }
 
   initBot(postBotId){

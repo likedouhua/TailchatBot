@@ -1,11 +1,11 @@
 module.exports = {
     type: "object",
     properties: {
-      subscribeId: { type: "string" },
+      converseId: { type: "string" },
       text: { type: "string" },
       type: { type: "string", enum: ["jenkins"] },
-      messageId: { type: "number" }
+      enableGroup: { type: "bool" }
     },
-    required: ["subscribeId", "text", "type", "messageId"],
+    required: ["converseId", "text", "type", "enableGroup"],
     additionalProperties: false
   };

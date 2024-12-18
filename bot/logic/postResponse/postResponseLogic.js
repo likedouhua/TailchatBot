@@ -7,14 +7,6 @@ class PostResponse extends BotLogicBase {
         console.log('PostResponse init:', this.oConfig);
     }
 
-
-/*jenkins消息格式
-{
-    "type":"",
-    "text":"",
-    "subscribeId":""
-}
- */
     _onMessage(receivedMsg) {
 
     }

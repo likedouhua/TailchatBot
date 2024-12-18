@@ -4,8 +4,7 @@ module.exports = {
       converseId: { type: "string" },
       text: { type: "string" },
       type: { type: "string", enum: ["jenkins"] },
-      enableGroup: { type: "bool" }
     },
-    required: ["converseId", "text", "type", "enableGroup"],
+    required: ["converseId", "text", "type"],
     additionalProperties: false
   };

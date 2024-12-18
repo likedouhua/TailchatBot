@@ -60,26 +60,30 @@ status
 
 */
 
-class RedmineHandler {
-
+class RedmineHandler extends DefaultHandler {
+  constructor() {
+    console.log('RedmineHandler constructor');
+    super();
+  }
+  
   onPostMessage(receivedMsg) {
     console.log('Processing Redmine message:', receivedMsg);
     // 实现Redmine消息的处理逻辑
     const messageContent = this.buildMsgContent(receivedMsg);
     const message = buildSendMessage(messageContent);
+    return message;
   }
 
-  buildSendMessage(messageContent){
+  buildSendMessage(messageContent) {
     const message = {
-      type:'redmine',
       //根据项目名转换为群组ID
-      converseId:'',
-      text:messageContent
+      converseId: '',
+      text: messageContent
     }
     return message;
   }
 
-  buildMsgContent(redmineData){
+  buildMsgContent(redmineData) {
     const subject = redmineData.payload.issue.subject;
     const action = redmineData.payload.action;
     const author = redmineData.payload.journal.author.firstname;
@@ -99,12 +103,12 @@ class RedmineHandler {
     return content;
   }
 
-  mdFormat_Blod(text){
+  mdFormat_Blod(text) {
     return "[md]**" + text + "**[/md]";
   }
 
-  mdFormat_Italic(text){
+  mdFormat_Italic(text) {
     return "[md]*" + text + "*[/md]";
   }
 }
-  module.exports = RedmineHandler;
+module.exports = { RedmineHandler }

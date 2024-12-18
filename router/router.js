@@ -4,35 +4,67 @@ const JenkinsHandler = require('./handlers/JenkinsHandler');
 const RedmineHandler = require('./handlers/RedmineHandler');
 const DefaultHandler = require('./handlers/DefaultHandler');
 
-// 定义路由
-const router = new Router();
-
-// 创建处理程序实例
-const handlers = {
-  jenkins: new JenkinsHandler(),
-  redmine: new RedmineHandler(),
-  default: new DefaultHandler()
-};
-
-// 定义 POST 路由
-router.post('/submit', async (ctx) => {
-  const receivedMsg = ctx.request.body;
-  let validated = false;
-
-  if (jenkinsValidator(receivedMsg)) {
-    handlers.jenkins.onPostMessage(receivedMsg);
-    validated = true;
-  } else if (redmineValidator(receivedMsg)) {
-    handlers.redmine.onPostMessage(receivedMsg);
-    validated = true;
+class RouterHandler {
+  constructor(oServerConfig) {
+    this.router = new Router();
+    this.handlers = this.initHandlers();
+    this.initRouter(oServerConfig.callback);
+    this.bot = this.initBot(oServerConfig.postBotId);
   }
 
-  if (!validated) {
-    handlers.default.onPostMessage(receivedMsg);
+  initRouter(callbackUrl) {
+    this.router.post(callbackUrl, this.handlePostRequest.bind(this));
+    return this.router;
   }
 
-  ctx.status = 200;
-  ctx.body = 'POST request received';
-});
+  initBot(postBotId){
+    const bot = require("../serverBot").tTailchatBot[postBotId];
+    return this.bot;
+  }
 
-module.exports = router;
+  initHandlers() {
+    return {
+      jenkins: new JenkinsHandler(),
+      redmine: new RedmineHandler(),
+      default: new DefaultHandler()
+    };
+  }
+
+  async handlePostRequest(ctx) {
+    try {
+      const receivedMsg = ctx.request.body;
+      await this.processMessage(receivedMsg);
+      ctx.status = 200;
+      ctx.body = 'POST request received';
+    } catch (error) {
+      ctx.status = 500;
+      ctx.body = 'Internal server error';
+      console.error('Error processing request:', error);
+    }
+  }
+
+  async processMessage(receivedMsg) {
+    const type = validateMessageType(receivedMsg); // 返回 'jenkins'/'redmine'/'default'
+    const message = await this.handlers[type].onPostMessage(receivedMsg);
+    this.sendMessage(message);
+  }
+
+
+  validateMessageType(receivedMsg) {
+    if (jenkinsValidator(receivedMsg)) {
+      return 'jenkins';
+    } else if (redmineValidator(receivedMsg)) {
+      return 'redmine';
+    } else {
+      return 'default';
+    }
+  }
+
+  sendMessage(message){
+    this.bot.sendMessage(message.converseId, message.groupId, message.content,null,null);
+  }
+}
+
+module.exports = {
+  RouterHandler
+}

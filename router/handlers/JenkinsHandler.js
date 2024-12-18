@@ -6,26 +6,31 @@
     "converseId":""
 }
  */
-
-class JenkinsHandler {
-    onPostMessage(receivedMsg) {
+class JenkinsHandler extends DefaultHandler {
+  constructor() {
+    console.log('JenkinsHandler constructor');
+    super();
+  }
+  
+  // 处理消息
+  onPostMessage(receivedMsg) {
     console.log('Processing Jenkins message:', receivedMsg);
     const messageContent = buildMsgContent(receivedMsg);
-    const message = buildSendMessage(messageContent,receivedMsg);
-      // 实现Jenkins消息的处理逻辑
-    }
-    
-    buildSendMessage(message,receivedMsg){
+    const message = buildSendMessage(messageContent, receivedMsg);
+    // 实现Jenkins消息的处理逻辑
+  }
+
+  buildSendMessage(message, receivedMsg) {
     const message = {
-      type:receivedMsg.type,
+      type: receivedMsg.type,
       //根据项目名转换为群组ID
-      converseId:receivedMsg.converseId,
-      text:messageContent
+      converseId: receivedMsg.converseId,
+      text: messageContent
     }
     return message;
   }
 
-  buildMsgContent(jenkinsData){
+  buildMsgContent(jenkinsData) {
     const text = jenkinsData.text;
 
     const message_title = "[md] ## Jenkins推送[/md]";
@@ -38,15 +43,15 @@ class JenkinsHandler {
     return content;
   }
 
-  mdFormat_Blod(text){
+  mdFormat_Blod(text) {
     return "[md]**" + text + "**[/md]";
   }
 
-  mdFormat_Italic(text){
+  mdFormat_Italic(text) {
     return "[md]*" + text + "*[/md]";
   }
-  }
-  
+}
 
 
-  module.exports = JenkinsHandler;
+
+module.exports = {JenkinsHandler}

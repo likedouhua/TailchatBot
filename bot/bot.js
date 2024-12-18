@@ -104,12 +104,6 @@ class TailchatBot {
             })
         }
     }
-
-    onPostMessage(receivedMsg){
-        for (const oBotLogic of this.lBotLogic) {
-            oBotLogic.onPostMessage(receivedMsg);
-        }
-    }
 }
 
 module.exports = {

@@ -1,8 +1,8 @@
-global.jsonConfig = require('./bot/jsonConfig');
+global.jsonConfig = require('./config/jsonConfig');
 
-const oServerConfig = jsonConfig.getConfigSync('./bot/serverBot.json');
+const oServerConfig = jsonConfig.getConfigSync('./config/serverBot.json');
 if (!oServerConfig) {
-    console.log('not found ./bot/serverBot.json');
+    console.log('not found serverBot.json');
     process.exit(1);
 }
 

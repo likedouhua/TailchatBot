@@ -1,25 +1,23 @@
 const Router = require('koa-router');
 const { jenkinsValidator, redmineValidator } = require('./validators');
-const JenkinsHandler = require('./handlers/JenkinsHandler');
-const RedmineHandler = require('./handlers/RedmineHandler');
-const DefaultHandler = require('./handlers/DefaultHandler');
+const JenkinsHandler = require('./handlers/JenkinsHandler').JenkinsHandler;
+const RedmineHandler = require('./handlers/RedmineHandler').RedmineHandler;
+const DefaultHandler = require('./handlers/DefaultHandler').DefaultHandler;
 
 class RouterHandler {
   constructor(oServerConfig) {
-    this.router = new Router();
+    this.router = initRouter();
     this.handlers = this.initHandlers();
     this.initRouter(oServerConfig.callback);
-    this.bot = this.initBot(oServerConfig.postBotId);
+    this.initBot(oServerConfig.postBotId);
   }
 
   initRouter(callbackUrl) {
-    this.router.post(callbackUrl, this.handlePostRequest.bind(this));
-    return this.router;
+    return router.post(callbackUrl, this.handlePostRequest.bind(this));
   }
 
   initBot(postBotId){
-    const bot = require("../serverBot").tTailchatBot[postBotId];
-    return this.bot;
+    this.bot = require("../serverBot").tTailchatBot[postBotId];
   }
 
   initHandlers() {

@@ -33,7 +33,7 @@ class JenkinsHandler extends DefaultHandler {
     return tailmessage;
   }
 
-  _buildMsgContent(jenkinsData) {
+  buildMsgContent(jenkinsData) {
     const message_title = "[md] ## Jenkins推送[/md]";
     const message_content = jenkinsData.text.split('\n');
 

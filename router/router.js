@@ -9,15 +9,11 @@ class RouterHandler {
     this.router = new Router();
     this.initRouter(oServerConfig.callback);
     this.handlers = this.initHandlers();
-    this.initBot(oServerConfig.postBotId);
+    this.tailchatBot = global.tTailchatBot[oServerConfig.postBotId];
   }
 
   initRouter(callbackUrl) {
     this.router.post(callbackUrl, this.handlePostRequest.bind(this));
-  }
-
-  initBot(postBotId){
-    this.bot = global.tTailchatBot?.[postBotId];
   }
 
   initHandlers() {
@@ -59,7 +55,7 @@ class RouterHandler {
   }
 
   sendMessage(message){
-    this.bot.sendMessage(message.converseId, message.groupId, message.content,null,null);
+    this.tailchatBot.sendMessage(message.converseId, message.groupId, message.content,null,null);
   }
 }
 

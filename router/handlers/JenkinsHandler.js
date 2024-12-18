@@ -6,6 +6,8 @@
     "converseId":""
 }
  */
+const DefaultHandler = require('./DefaultHandler').DefaultHandler
+
 class JenkinsHandler extends DefaultHandler {
   constructor() {
     console.log('JenkinsHandler constructor');

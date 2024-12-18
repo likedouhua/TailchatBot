@@ -59,6 +59,7 @@ status
 }
 
 */
+const DefaultHandler = require('./DefaultHandler').DefaultHandler
 
 class RedmineHandler extends DefaultHandler {
   constructor() {

@@ -20,4 +20,6 @@ class DefaultHandler {
     // 子类实现
   }
 }
-module.exports = {DefaultHandler}
+module.exports = {
+  DefaultHandler
+}

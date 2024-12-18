@@ -4,16 +4,14 @@ class DefaultHandler {
     console.log("DefaultHandler constructor");
   }
   onPostMessage(receivedMsg) {
-    console.log('Unrecognized message type:', receivedMsg);
+    console.log('Unrecognized message type');
     // 可以执行一些默认处理
-    this._onPostMessage(message);
-  
   }
-  buildSendMessage() {
+  buildSendMessage(message) {
     this._buildSendMessage(message);
   }
 
-  buildMsgContent() {
+  buildMsgContent(message) {
     this._buildMsgContent(message);
   }
 

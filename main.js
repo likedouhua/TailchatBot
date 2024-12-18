@@ -19,5 +19,5 @@ function runScript(scriptPath) {
 }
 
 // 运行两个脚本
-runScript(serverPostPath);
 runScript(serverBotPath);
+runScript(serverPostPath);

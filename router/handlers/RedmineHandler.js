@@ -70,17 +70,17 @@ class RedmineHandler extends DefaultHandler {
     console.log('Processing Redmine message:', receivedMsg);
     // 实现Redmine消息的处理逻辑
     const messageContent = this.buildMsgContent(receivedMsg);
-    const message = buildSendMessage(messageContent);
-    return message;
+    const tailmessage = buildSendMessage(messageContent);
+    return tailmessage;
   }
 
   buildSendMessage(messageContent) {
-    const message = {
+    const tailmessage = {
       //根据项目名转换为群组ID
       converseId: '',
       text: messageContent
     }
-    return message;
+    return tailmessage;
   }
 
   buildMsgContent(redmineData) {

@@ -22,13 +22,13 @@ class JenkinsHandler extends DefaultHandler {
   }
 
   buildSendMessage(message, receivedMsg) {
-    const message = {
+    const tailmessage = {
       type: receivedMsg.type,
       //根据项目名转换为群组ID
       converseId: receivedMsg.converseId,
       text: messageContent
     }
-    return message;
+    return tailmessage;
   }
 
   buildMsgContent(jenkinsData) {

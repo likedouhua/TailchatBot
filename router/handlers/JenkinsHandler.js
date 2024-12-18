@@ -18,6 +18,7 @@ class JenkinsHandler extends DefaultHandler {
     const messageContent = buildMsgContent(receivedMsg);
     const message = buildSendMessage(messageContent, receivedMsg);
     // 实现Jenkins消息的处理逻辑
+    return message;
   }
 
   buildSendMessage(message, receivedMsg) {
@@ -31,8 +32,6 @@ class JenkinsHandler extends DefaultHandler {
   }
 
   buildMsgContent(jenkinsData) {
-    const text = jenkinsData.text;
-
     const message_title = "[md] ## Jenkins推送[/md]";
     const message_content = jenkinsData.text.split('\n');
 

@@ -14,7 +14,9 @@ app.use(bodyParser());
 
 // 使用外部定义的路由
 const router = new RouterHandler(oServerConfig);
-app.use(router.router.router()).use(router.allowedMethods());
+
+app.use(router.router.routes());
+app.use(router.router.allowedMethods());
 
 // 启动服务器
 const PORT = process.env.PORT || 3000;

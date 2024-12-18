@@ -128,3 +128,10 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# 忽略 data 文件夹下的所有子目录
+/data/*/
+
+# 但是不忽略 data 文件夹本身及其直接包含的文件
+!data/
+!data/*.*

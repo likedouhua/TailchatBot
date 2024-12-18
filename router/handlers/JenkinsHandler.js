@@ -18,12 +18,12 @@ class JenkinsHandler extends DefaultHandler {
   _onPostMessage(receivedMsg) {
     console.log('Processing Jenkins message:', receivedMsg);
     const messageContent = this._buildMsgContent(receivedMsg);
-    const message = this._buildSendMessage(messageContent, receivedMsg);
+    const message = this._buildSendMessage(receivedMsg,messageContent);
     // 实现Jenkins消息的处理逻辑
     return message;
   }
 
-  _buildSendMessage(receivedMsg) {
+  _buildSendMessage(receivedMsg,messageContent) {
     const tailmessage = {
       type: receivedMsg.type,
       //根据项目名转换为群组ID

@@ -2,13 +2,13 @@
 class DefaultHandler {
   constructor(sPath, tCallBack) {
     this.tCallBack = tCallBack;
-
     console.log("DefaultHandler constructor");
   }
+
   onPostMessage(receivedMsg) {
-    console.log('Unrecognized message type');
-    // 可以执行一些默认处理
+    this._onPostMessage(receivedMsg);
   }
+
   buildSendMessage(message) {
     this._buildSendMessage(message);
   }

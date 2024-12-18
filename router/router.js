@@ -46,10 +46,13 @@ class RouterHandler {
 
   validateMessageType(receivedMsg) {
     if (jenkinsValidator(receivedMsg)) {
+      console.log("jenkins");
       return 'jenkins';
     } else if (redmineValidator(receivedMsg)) {
+      console.log("redmine");
       return 'redmine';
     } else {
+      console.log("default");
       return 'default';
     }
   }

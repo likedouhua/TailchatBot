@@ -106,7 +106,7 @@ class TaskListLogic extends BotLogicBase {
             const oTaskList = this._getTaskList(message);
             const tCount = oTaskList.count();
             sOutPut = sOutPut + this._countStr(tCount);
-            if (tCount[TaskStatus.UNFINISHED] > 0 || tCount[TaskStatus.TOTEST > 0]) {
+            if (tCount[TaskStatus.UNFINISHED] > 0 || tCount[TaskStatus.TOTEST] > 0) {
                 sOutPut = sOutPut + os.EOL + this.oConfig.reply.closeFail;
             }
             else {

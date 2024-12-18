@@ -15,7 +15,7 @@ class JenkinsHandler extends DefaultHandler {
   }
   
   // 处理消息
-  onPostMessage(receivedMsg) {
+  _onPostMessage(receivedMsg) {
     console.log('Processing Jenkins message:', receivedMsg);
     const messageContent = buildMsgContent(receivedMsg);
     const message = buildSendMessage(messageContent, receivedMsg);
@@ -23,7 +23,7 @@ class JenkinsHandler extends DefaultHandler {
     return message;
   }
 
-  buildSendMessage(message, receivedMsg) {
+  _buildSendMessage(message, receivedMsg) {
     const tailmessage = {
       type: receivedMsg.type,
       //根据项目名转换为群组ID
@@ -33,7 +33,7 @@ class JenkinsHandler extends DefaultHandler {
     return tailmessage;
   }
 
-  buildMsgContent(jenkinsData) {
+  _buildMsgContent(jenkinsData) {
     const message_title = "[md] ## Jenkins推送[/md]";
     const message_content = jenkinsData.text.split('\n');
 
@@ -44,13 +44,6 @@ class JenkinsHandler extends DefaultHandler {
     return content;
   }
 
-  mdFormat_Blod(text) {
-    return "[md]**" + text + "**[/md]";
-  }
-
-  mdFormat_Italic(text) {
-    return "[md]*" + text + "*[/md]";
-  }
 }
 
 

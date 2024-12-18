@@ -19,7 +19,7 @@ class TaskListLogic extends BotLogicBase {
             for (const sOrder in this.oConfig.orderMap) {
                 let sMark = this.oConfig.symbol + sOrder;
                 if (sContent.includes(sMark)) {
-                    let sFunc = this.oConfig.orderMap[sOrder];
+                    let sFunc = this.oConfig.orderMap[sOrder].order;
                     this[sFunc](message, sContent.replace(sMark, '').trim());
                     bOrder = true;
                 }
@@ -270,7 +270,7 @@ class TaskListLogic extends BotLogicBase {
     help(message) {
         let sOutPut = this.oConfig.reply.help + os.EOL;
         for (const sOrder in this.oConfig.orderMap) {
-            let sMark = this.oConfig.symbol + sOrder;
+            let sMark = this.oConfig.symbol + (this.oConfig.orderMap[sOrder].example ?? sOrder);
             sOutPut = sOutPut + sMark + os.EOL;
         }
         this.tCallBack.sendMessage(message.converseId, message.groupId, sOutPut);

@@ -79,7 +79,10 @@ class TaskListLogic extends BotLogicBase {
     }
 
     _saveData(oTaskList) {
-        jsonData.saveData('taskList', oTaskList.sKey + '.json', oTaskList.toJSON())
+        if(!oTaskList){
+            return;
+        }
+        jsonData.saveData('taskList', oTaskList.sKey + '.json', oTaskList.toJSON());
     }
 
     open(message) {

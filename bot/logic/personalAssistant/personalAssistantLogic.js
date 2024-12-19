@@ -31,6 +31,10 @@ class PersonalAssistantLogic extends BotLogicBase {
         */
        this.tCallBack.sendMessage(message.converseId, null, message.author);
     }
+
+    relogin(message) {
+        
+    }
 }
 
 module.exports = {

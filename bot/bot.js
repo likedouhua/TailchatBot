@@ -9,6 +9,37 @@ class TailchatBot {
             process.exit(1);
         }
 
+        this.login();
+
+        this.lBotLogic = []
+        for (const sLogicName of lLogicName) {
+            try {
+                let sPath = path.join(__dirname, 'logic', sLogicName, sLogicName + 'Logic');
+                console.log(sPath);
+                const BotLogic = require(sPath).BotLogic;
+                if (BotLogic) {
+                    const oLogic = new BotLogic(sLogicName, {
+                        sendMessage: (converseId, groupId = null, content, plain = null, meta = null) => {
+                            this.sendMessage(converseId, groupId, content, plain, meta);
+                        },
+                        relogin : () => {
+                            this.relogin();
+                        }
+                    });
+                    this.lBotLogic.push(oLogic);
+                }
+            } catch (error) {
+                console.log(error);
+            }
+            
+        }
+    }
+
+    login() {
+        if (this.client) {
+            console.log('login():Already login in');
+            return;
+        }
         // Windows上用于调试，屏蔽真连接
         if (process.platform != 'win32') {
             const client = new TailchatWsClient(url, appId, appSecret, disableMsgpack);
@@ -31,37 +62,28 @@ class TailchatBot {
                 */
                 console.log('Login Success! appId:', appId);
                 self.bConnect = true;
-    
+
                 client.onMessage((message) => {
                     self.onMessage(message);
                 });
-    
+
                 client.onMessageUpdate((message) => {
                     self.onMessageUpdate(message);
                 });
             })
             this.client = client;
         }
+    }
 
-        this.lBotLogic = []
-        for (const sLogicName of lLogicName) {
-            try {
-                let sPath = path.join(__dirname, 'logic', sLogicName, sLogicName + 'Logic');
-                console.log(sPath);
-                const BotLogic = require(sPath).BotLogic;
-                if (BotLogic) {
-                    const oLogic = new BotLogic(sLogicName, {
-                        sendMessage: (converseId, groupId = null, content, plain = null, meta = null) => {
-                            this.sendMessage(converseId, groupId, content, plain, meta);
-                        },
-                    });
-                    this.lBotLogic.push(oLogic);
-                }
-            } catch (error) {
-                console.log(error);
-            }
-            
+    relogin() {
+        // 重登
+        if (!this.client || !this.bConnect) {
+            console.log('login():Not login in yet');
+            return;
         }
+        this.client.disconnect();
+        delete this.client;
+        this.login();
     }
 
     onMessage(message) {

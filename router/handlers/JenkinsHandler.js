@@ -15,18 +15,16 @@ class JenkinsHandler extends DefaultHandler {
   }
   
   // 处理消息
-  _onPostMessage(receivedMsg) {
-    // logger.info('Processing Jenkins message:', receivedMsg);
-    const messageContent = this._buildMsgContent(receivedMsg);
-    const message = this._buildSendMessage(receivedMsg,messageContent);
-    return message;
+  _onPostMessage(receivedMsg,converseId) {
+    return this._buildSendMessage(receivedMsg,converseId);
   }
 
-  _buildSendMessage(receivedMsg,messageContent) {
+  _buildSendMessage(receivedMsg,converseId) {
+    const messageContent = this._buildMsgContent(receivedMsg)
     const tailmessage = {
       type: receivedMsg.type,
       //根据项目名转换为群组ID
-      converseId: receivedMsg.converseId,
+      converseId: converseId,
       text: messageContent
     }
     return tailmessage;
@@ -34,12 +32,9 @@ class JenkinsHandler extends DefaultHandler {
 
   _buildMsgContent(jenkinsData) {
     const message_title = "[md] ## Jenkins推送[/md]";
-    const message_content = jenkinsData.text.split('\n');
+    const message_content = jenkinsData.text;
 
-    const content = {
-      message_title,
-      message_content
-    }
+    const content = message_title+message_content;
     return content;
   }
 

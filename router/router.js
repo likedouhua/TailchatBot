@@ -61,7 +61,7 @@ class RouterHandler {
   async sendMessage(message){
     if(message.converseId){
       try {
-        await this.bot.sendMessage(message.converseId, message.groupId, message.content,null,null);
+        await this.bot.sendMessage(message.converseId, null, message.text,null,null);
     } catch (error) {
         console.error(error);
     }

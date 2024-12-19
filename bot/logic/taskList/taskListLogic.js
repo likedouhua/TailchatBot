@@ -48,12 +48,7 @@ class TaskListLogic extends BotLogicBase {
     }
 
     _hasTaskList(message) {
-        const sKey = this._getDataKey(message);
-        if (this.m_tTaskList[sKey]) {
-            return true;
-        }
-        const oData = jsonData.getData('taskList', this._getDataName(message));
-        if (oData) {
+        if (this.m_tTaskList[this._getDataKey(message)] || jsonData.hasData('taskList', this._getDataName(message))) {
             return true;
         }
     }
@@ -85,7 +80,6 @@ class TaskListLogic extends BotLogicBase {
 
     open(message) {
         let sOutPut = '';
-        const sKey = this._getDataKey(message);
         if (this._hasTaskList(message)) {
             sOutPut = this.oConfig.reply.openFail + os.EOL;
             const oTaskList = this._getTaskList(message);
@@ -257,6 +251,7 @@ class TaskListLogic extends BotLogicBase {
         }
         if (oTaskList.complete(iId)) {
             this._saveData(oTaskList);
+            
             let sOutPut = this.oConfig.reply.completeSucess + String(iId) + os.EOL;
             const tCount = oTaskList.count();
             sOutPut = sOutPut + this._countStr(tCount);

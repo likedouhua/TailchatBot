@@ -39,7 +39,7 @@ class TailchatBot {
         }
     }
 
-    login() {
+    login(oCallBack) {
         if (this.client) {
             logger.info('login():Already login in');
             return;
@@ -74,12 +74,16 @@ class TailchatBot {
                 client.onMessageUpdate((message) => {
                     self.onMessageUpdate(message);
                 });
+
+                if (oCallBack) {
+                    oCallBack();
+                }
             })
             this.client = client;
         }
     }
 
-    relogin() {
+    relogin(oCallBack) {
         // 重登
         if (!this.client || !this.bConnect) {
             logger.info('login():Not login in yet');
@@ -87,7 +91,7 @@ class TailchatBot {
         }
         this.client.disconnect();
         delete this.client;
-        this.login();
+        this.login(oCallBack);
     }
 
     onMessage(message) {

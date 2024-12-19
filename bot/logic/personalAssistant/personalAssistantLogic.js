@@ -31,7 +31,9 @@ class PersonalAssistantLogic extends BotLogicBase {
     }
 
     relogin(message) {
-        
+        this.tCallBack.relogin(() => {
+            this.tCallBack.sendMessage(message.converseId, null, this.oConfig.reply.reloginSuccess);
+        });
     }
 }
 

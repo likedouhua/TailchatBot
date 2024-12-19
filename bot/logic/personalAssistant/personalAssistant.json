@@ -3,5 +3,8 @@
     "orderMap" : {
         "获取ID" : "getID",
         "重登" : "relogin"
+    },
+    "reply" : {
+        "reloginSuccess" : "重登完毕"
     }
 }

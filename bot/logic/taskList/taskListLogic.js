@@ -137,6 +137,7 @@ class TaskListLogic extends BotLogicBase {
         if (sContent.length > 0) {
             this.m_tOperate[sOperateKey].push(sContent);
         }
+        this.tCallBack.sendMessage(message.converseId, message.groupId, this.oConfig.reply.createMission);
     }
 
     _onCreate(message) {

@@ -19,11 +19,12 @@
         "closeNotFound" : "都没有任务可做的:sweat_smile:",
         "createFail" : "存在未创建完成任务，请先取消创建",
         "createSuccess" : "已创建任务",
-        "cancelSuccess" : "（不理他）" ,
+        "cancelSuccess" : "说了和没说一样属于是" ,
         "toTestSuccess" : "已推送任务测试，编号：",
         "completeSucess" : "已完成任务，编号：",
         "numIllegal" : "？你再看看？哪儿来的",
         "help" : "当前指令集：",
-        "play" : "输错了玩呢？我让你飞起来！"
+        "play" : "输错了玩呢？我让你飞起来！",
+        "createMission":"请输入内容"
     }
 }

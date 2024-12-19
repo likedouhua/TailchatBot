@@ -3,6 +3,7 @@ const { jenkinsValidator, redmineValidator } = require('./validators');
 const JenkinsHandler = require('./handlers/JenkinsHandler').JenkinsHandler;
 const RedmineHandler = require('./handlers/RedmineHandler').RedmineHandler;
 const DefaultHandler = require('./handlers/DefaultHandler').DefaultHandler;
+const logger = require("../utils/logger")
 
 class RouterHandler {
   constructor(oServerConfig,tTailchatBot) {
@@ -46,13 +47,13 @@ class RouterHandler {
 
   validateMessageType(receivedMsg) {
     if (jenkinsValidator(receivedMsg)) {
-      console.log("jenkins");
+      logger.info("jenkins");
       return 'jenkins';
     } else if (redmineValidator(receivedMsg)) {
-      console.log("redmine");
+      logger.info("redmine");
       return 'redmine';
     } else {
-      console.log("default");
+      logger.info("default");
       return 'default';
     }
   }
@@ -65,7 +66,7 @@ class RouterHandler {
         console.error(error);
     }
     }
-    console.log(message);
+    logger.info(message);
   }
 }
 

@@ -64,11 +64,11 @@ const DefaultHandler = require('./DefaultHandler').DefaultHandler
 class RedmineHandler extends DefaultHandler {
   constructor(sPath, tCallBack) {
     super(sPath, tCallBack);
-    console.log('RedmineHandler constructor');
+    // logger.info('RedmineHandler constructor');
   }
   
   _onPostMessage(receivedMsg) {
-    console.log('Processing Redmine message:', receivedMsg);
+    // logger.info('Processing Redmine message:', receivedMsg);
     // 实现Redmine消息的处理逻辑
     const messageContent = this._buildMsgContent(receivedMsg);
     const tailmessage = this._buildSendMessage(messageContent);

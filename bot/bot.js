@@ -1,11 +1,12 @@
 const tailchatSDK = require('tailchat-client-sdk');
 const TailchatWsClient = tailchatSDK.TailchatWsClient;
 const path = require('path');
+const logger = require('../utils/logger');
 
 class TailchatBot {
     constructor(url, appId, appSecret, disableMsgpack = false, lLogicName = []) {
         if (!url || !appId || !appSecret) {
-            console.log('require env: url, appId, appSecret');
+            logger.info('require env: url, appId, appSecret');
             process.exit(1);
         }
 
@@ -29,7 +30,7 @@ class TailchatBot {
                 __v: 0
                 }
                 */
-                console.log('Login Success! appId:', appId);
+                logger.info('Login Success! appId:', appId);
                 self.bConnect = true;
     
                 client.onMessage((message) => {
@@ -47,7 +48,7 @@ class TailchatBot {
         for (const sLogicName of lLogicName) {
             try {
                 let sPath = path.join(__dirname, 'logic', sLogicName, sLogicName + 'Logic');
-                console.log(sPath);
+                logger.info(sPath);
                 const BotLogic = require(sPath).BotLogic;
                 if (BotLogic) {
                     const oLogic = new BotLogic(sLogicName, {
@@ -58,7 +59,7 @@ class TailchatBot {
                     this.lBotLogic.push(oLogic);
                 }
             } catch (error) {
-                console.log(error);
+                logger.info(error);
             }
             
         }
@@ -93,7 +94,7 @@ class TailchatBot {
     }
 
     sendMessage(converseId, groupId = null, content, plain = null, meta = null) {
-        console.log('sendMessage:', converseId, groupId, content, this.client && this.bConnect);
+        logger.info('sendMessage:', converseId, groupId, content, this.client && this.bConnect);
         if (this.client && this.bConnect) {
             this.client.sendMessage({
                 groupId: groupId,

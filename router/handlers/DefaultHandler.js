@@ -8,7 +8,7 @@ class DefaultHandler {
 
   onPostMessage(receivedMsg) {
     const oJSON = jsonConfig.getConfigSync(sPath) ?? [];
-    realId = oJSON.find(item => item.name == receivedMsg.converseId);
+    const realId = oJSON.find(item => item.name == receivedMsg.converseId);
     receivedMsg.converseId = realId ? realId.converseId : null;
     return this._onPostMessage(receivedMsg);
   }

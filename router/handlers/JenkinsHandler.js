@@ -11,12 +11,12 @@ const DefaultHandler = require('./DefaultHandler').DefaultHandler
 class JenkinsHandler extends DefaultHandler {
   constructor(sPath, tCallBack) {
     super(sPath, tCallBack);
-    console.log('JenkinsHandler constructor');
+    // logger.info('JenkinsHandler constructor');
   }
   
   // 处理消息
   _onPostMessage(receivedMsg) {
-    console.log('Processing Jenkins message:', receivedMsg);
+    // logger.info('Processing Jenkins message:', receivedMsg);
     const messageContent = this._buildMsgContent(receivedMsg);
     const message = this._buildSendMessage(receivedMsg,messageContent);
     return message;

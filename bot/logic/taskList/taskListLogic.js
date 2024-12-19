@@ -187,7 +187,7 @@ class TaskListLogic extends BotLogicBase {
         let sOutPut = '';
         const oTaskList = this._getTaskList(message);
         const tTask = oTaskList.getAllTask();
-        sOutPut = sOutPut + '[md]### 未完成【'+ tTask[TaskStatus.UNFINISHED].length + '】[/md]' + os.EOL;
+        sOutPut = sOutPut + '[md]### 未完成【'+ tTask[TaskStatus.UNFINISHED].length + '】[/md]';
         for (const oTask of tTask[TaskStatus.UNFINISHED]) {
             sOutPut = sOutPut + String(oTask.id) + ':' + os.EOL;
             for (const sDesc of oTask.descriptions) {
@@ -195,7 +195,7 @@ class TaskListLogic extends BotLogicBase {
             }
             sOutPut = sOutPut + os.EOL;
         }
-        sOutPut = sOutPut + '[md]### 待测试【'+ tTask[TaskStatus.TOTEST].length + '】[/md]' + os.EOL;
+        sOutPut = sOutPut + '[md]### 待测试【'+ tTask[TaskStatus.TOTEST].length + '】[/md]';
         for (const oTask of tTask[TaskStatus.TOTEST]) {
             sOutPut = sOutPut + String(oTask.id) + ':' + os.EOL;
             for (const sDesc of oTask.descriptions) {
@@ -203,7 +203,7 @@ class TaskListLogic extends BotLogicBase {
             }
             sOutPut = sOutPut + os.EOL;
         }
-        sOutPut = sOutPut + '[md]### 已完成【'+ tTask[TaskStatus.COMPLETED].length + '】[/md]' + os.EOL;
+        sOutPut = sOutPut + '[md]### 已完成【'+ tTask[TaskStatus.COMPLETED].length + '】[/md]';
         for (const oTask of tTask[TaskStatus.COMPLETED]) {
             sOutPut = sOutPut + String(oTask.id) + ':' + os.EOL;
             for (const sDesc of oTask.descriptions) {

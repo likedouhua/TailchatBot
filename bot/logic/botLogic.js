@@ -1,11 +1,13 @@
 const path = require('path');
+const logger = require("../../utils/logger")
+
 class BotLogicBase {
     constructor(sPath, tCallBack) {
         this.tCallBack = tCallBack;
 
         const oConfig = jsonConfig.getConfigSync(path.join(__dirname, sPath, sPath + '.json'));
         if (!oConfig) {
-            console.log('error BotLogic not found:', sPath);
+            logger.info('error BotLogic not found:', sPath);
         }
         this.oConfig = oConfig;
     }
@@ -19,7 +21,7 @@ class BotLogicBase {
     }
 
     _onMessage(message) {
-        console.log('BotLogicBase:', message);
+        logger.info('BotLogicBase:', message);
         // 子类实现
     }
 

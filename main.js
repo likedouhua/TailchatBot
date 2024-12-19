@@ -1,10 +1,11 @@
 const Koa = require('koa');
 const bodyParser = require('koa-bodyparser');
 const RouterHandler = require('./router/router').RouterHandler; // 导入单独的路由配置
+const logger = require('./utils/logger');
 const app = new Koa();
 const path = require('path');
 
-console.log(path.join(path.resolve(), 'config', 'jsonConfig'));
+logger.info(path.join(path.resolve(), 'config', 'jsonConfig'));
 global.jsonConfig = require(path.join(path.resolve(), 'config', 'jsonConfig'));
 global.jsonData = require(path.join(path.resolve(), 'data', 'jsonData'));
 
@@ -19,11 +20,11 @@ if (oServerConfig) {
     }
 }
 else {
-    console.log('not found ./config/serverBot.json');
+    logger.info('not found ./config/serverBot.json');
 }
 
 if (!oServerConfig) {
-    console.log('not found serverBot.json');
+    logger.info('not found serverBot.json');
     process.exit(1);
 }
 
@@ -38,5 +39,5 @@ app.use(router.router.allowedMethods());
 // 启动服务器
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`Server is listening on port ${PORT}`);
+  logger.info(`Server is listening on port ${PORT}`);
 });

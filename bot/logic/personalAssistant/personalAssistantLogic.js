@@ -3,8 +3,6 @@ const BotLogicBase = require('../botLogic').BotLogicBase
 class PersonalAssistantLogic extends BotLogicBase {
     constructor(sPath, tCallBack) {
         super(sPath, tCallBack);
-
-        console.log('PersonalAssistantLogic init:', this.oConfig);
     }
 
     _onMessage(message) {

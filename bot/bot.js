@@ -1,11 +1,12 @@
 const tailchatSDK = require('tailchat-client-sdk');
 const TailchatWsClient = tailchatSDK.TailchatWsClient;
 const path = require('path');
+const logger = require('../utils/logger');
 
 class TailchatBot {
     constructor(url, appId, appSecret, disableMsgpack = false, lLogicName = []) {
         if (!url || !appId || !appSecret) {
-            console.log('require env: url, appId, appSecret');
+            logger.info('require env: url, appId, appSecret');
             process.exit(1);
         }
 
@@ -15,7 +16,7 @@ class TailchatBot {
         for (const sLogicName of lLogicName) {
             try {
                 let sPath = path.join(__dirname, 'logic', sLogicName, sLogicName + 'Logic');
-                console.log(sPath);
+                logger.info(sPath);
                 const BotLogic = require(sPath).BotLogic;
                 if (BotLogic) {
                     const oLogic = new BotLogic(sLogicName, {
@@ -29,7 +30,7 @@ class TailchatBot {
                     this.lBotLogic.push(oLogic);
                 }
             } catch (error) {
-                console.log(error);
+                logger.info(error);
             }
             
         }
@@ -37,7 +38,7 @@ class TailchatBot {
 
     login() {
         if (this.client) {
-            console.log('login():Already login in');
+            logger.info('login():Already login in');
             return;
         }
         // Windows上用于调试，屏蔽真连接
@@ -60,7 +61,7 @@ class TailchatBot {
                 __v: 0
                 }
                 */
-                console.log('Login Success! appId:', appId);
+                logger.info('Login Success! appId:', appId);
                 self.bConnect = true;
 
                 client.onMessage((message) => {
@@ -78,7 +79,7 @@ class TailchatBot {
     relogin() {
         // 重登
         if (!this.client || !this.bConnect) {
-            console.log('login():Not login in yet');
+            logger.info('login():Not login in yet');
             return;
         }
         this.client.disconnect();
@@ -115,7 +116,7 @@ class TailchatBot {
     }
 
     sendMessage(converseId, groupId = null, content, plain = null, meta = null) {
-        console.log('sendMessage:', converseId, groupId, content, this.client && this.bConnect);
+        logger.info('sendMessage:', converseId, groupId, content, this.client && this.bConnect);
         if (this.client && this.bConnect) {
             this.client.sendMessage({
                 groupId: groupId,

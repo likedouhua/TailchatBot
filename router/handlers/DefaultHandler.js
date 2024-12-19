@@ -2,7 +2,6 @@
 class DefaultHandler {
   constructor(sPath, tCallBack) {
     this.tCallBack = tCallBack;
-    console.log("DefaultHandler constructor");
   }
 
   onPostMessage(receivedMsg) {

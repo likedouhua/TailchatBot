@@ -61,6 +61,10 @@ class TaskListLogic extends BotLogicBase {
     _getTaskList(message) {
         const sKey = this._getDataKey(message);
         let oTaskList = this.m_tTaskList[sKey];
+        if(oTaskList){
+            return oTaskList;
+        }
+        
         if (!oTaskList) {
             const oData = jsonData.getData('taskList', this._getDataName(message));
             if (oData) {

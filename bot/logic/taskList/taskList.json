@@ -1,12 +1,12 @@
 {
     "symbol" : "/",
     "orderMap" : {
-        "开启清单" : {"order" : "open"},
+        "创建清单" : {"order" : "open"},
         "关闭清单" : {"order" : "close"},
-        "创建" : {"order" : "create"},
+        "创建任务" : {"order" : "create"},
         "确认创建" : {"order" : "finish"},
-        "取消" : {"order" : "cancel"},
-        "查看清单" : {"order" : "show"},
+        "取消任务" : {"order" : "cancel"},
+        "查看" : {"order" : "show"},
         "推测" : {"order" : "toTest", "example" : "推测=1"},
         "完成" : {"order" : "complete", "example" : "完成=1"},
         "帮助" : {"order" : "help"}
@@ -16,14 +16,14 @@
         "openFail" : "已存在任务清单，无法重复创建",
         "closeSuccess" : "已关闭该任务清单",
         "closeFail" : "这位更是重量级，任务还没清完呢",
-        "closeNotFound" : "都没有任务可做的，不要闹",
-        "createFail" : "存在未创建完成任务，请先取消创建\n欲速则不达",
+        "closeNotFound" : "都没有任务可做的:sweat_smile:",
+        "createFail" : "存在未创建完成任务，请先取消创建",
         "createSuccess" : "已创建任务",
         "cancelSuccess" : "（不理他）" ,
         "toTestSuccess" : "已推送任务测试，编号：",
         "completeSucess" : "已完成任务，编号：",
         "numIllegal" : "？你再看看？哪儿来的",
         "help" : "当前指令集：",
-        "play" : "玩呢？"
+        "play" : "输错了玩呢？我让你飞起来！"
     }
 }

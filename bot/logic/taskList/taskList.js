@@ -1,4 +1,3 @@
-// 任务状态枚举
 const TaskStatus = {
   UNFINISHED: 0, // 未完成
   TOTEST: 1,     // 待测试
@@ -34,19 +33,21 @@ class TaskList {
   constructor(sKey, lTask = []) {
     this.sKey = sKey;
     this.lTask = lTask;
+    this.taskIdCounter = lTask.length ? Math.max(...lTask.map(task => task.id)) : 0;
   }
 
   // 添加任务
   addTask(lDesc) {
-    const oTask = new Task(this.lTask.length + 1, TaskStatus.UNFINISHED, 0, lDesc);
+    const oTask = new Task(++this.taskIdCounter, TaskStatus.UNFINISHED, 0, lDesc);
     oTask.updateTime();
     this.lTask.push(oTask);
   }
 
-  toTest(iId) {
+  // 更新任务状态
+  updateTaskStatus(iId, newStatus) {
     for (const oTask of this.lTask) {
-      if (oTask.id == iId) {
-        oTask.status = TaskStatus.TOTEST;
+      if (oTask.id === iId) {
+        oTask.status = newStatus;
         oTask.updateTime();
         return true;
       }
@@ -54,62 +55,55 @@ class TaskList {
     return false;
   }
 
+  toTest(iId) {
+    return this.updateTaskStatus(iId, TaskStatus.TOTEST);
+  }
+
   complete(iId) {
-    for (const oTask of this.lTask) {
-      if (oTask.id == iId) {
-        oTask.status = TaskStatus.COMPLETED;
-        oTask.updateTime();
-        return true;
-      }
-    }
-    return false;
+    return this.updateTaskStatus(iId, TaskStatus.COMPLETED);
   }
 
   // 将任务清单实例转换为纯对象
   toJSON() {
     return {
-      sKey : this.sKey,
+      sKey: this.sKey,
       lTask: this.lTask.map(task => task.toJSON())
     };
   }
 
   // 从纯对象中恢复任务清单实例
   static fromJSON(json) {
-    const lTask = json.lTask.map(taskJson => {
-      const task = new Task(taskJson.id, taskJson.status, taskJson.lastOperatedTime, taskJson.descriptions);
-      return task;
-    });
-    return new TaskList(json.skey, lTask);
+    const lTask = json.lTask.map(taskJson => new Task(taskJson.id, taskJson.status, taskJson.lastOperatedTime, taskJson.descriptions));
+    return new TaskList(json.sKey, lTask);
   }
 
   // 计算任务数量
   count() {
-    let tCount = {
-      [TaskStatus.UNFINISHED] : 0,
-      [TaskStatus.TOTEST] : 0,
-      [TaskStatus.COMPLETED] : 0,
-    }
-    for (const oTask of this.lTask) {
+    return this.lTask.reduce((tCount, oTask) => {
       tCount[oTask.status]++;
-    }
-    return tCount;
+      return tCount;
+    }, {
+      [TaskStatus.UNFINISHED]: 0,
+      [TaskStatus.TOTEST]: 0,
+      [TaskStatus.COMPLETED]: 0
+    });
   }
 
   getAllTask() {
-    let tTask = {
-      [TaskStatus.UNFINISHED] : [],
-      [TaskStatus.TOTEST] : [],
-      [TaskStatus.COMPLETED] : [],
-    }
+    const tTask = {
+      [TaskStatus.UNFINISHED]: [],
+      [TaskStatus.TOTEST]: [],
+      [TaskStatus.COMPLETED]: [],
+    };
+
     for (const oTask of this.lTask) {
       tTask[oTask.status].push(oTask);
     }
-    for (const eTaskStatus in tTask) {
-      if (Object.prototype.hasOwnProperty.call(tTask, eTaskStatus)) {
-        const lTask = tTask[eTaskStatus];
-        lTask.sort((oTask1, oTask2) => oTask1.lastOperatedTime - oTask2.lastOperatedTime);
-      }
-    }
+
+    Object.values(tTask).forEach(lTask => {
+      lTask.sort((oTask1, oTask2) => oTask1.lastOperatedTime - oTask2.lastOperatedTime);
+    });
+
     return tTask;
   }
 }
@@ -117,4 +111,4 @@ class TaskList {
 module.exports = {
   TaskStatus,
   TaskList,
-}
+};

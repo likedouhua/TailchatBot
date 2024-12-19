@@ -1,3 +1,4 @@
+// 任务状态枚举
 const TaskStatus = {
   UNFINISHED: 0, // 未完成
   TOTEST: 1,     // 待测试
@@ -17,7 +18,6 @@ class Task {
     this.lastOperatedTime = new Date().getTime();
   }
 
-  // 将任务实例转换为纯对象
   toJSON() {
     return {
       id: this.id,
@@ -28,19 +28,29 @@ class Task {
   }
 }
 
-// 任务清单类
 class TaskList {
   constructor(sKey, lTask = []) {
     this.sKey = sKey;
     this.lTask = lTask;
     this.taskIdCounter = lTask.length ? Math.max(...lTask.map(task => task.id)) : 0;
   }
-
+  
   // 添加任务
   addTask(lDesc) {
     const oTask = new Task(++this.taskIdCounter, TaskStatus.UNFINISHED, 0, lDesc);
     oTask.updateTime();
     this.lTask.push(oTask);
+  }
+
+  toTest(iId) {
+    for (const oTask of this.lTask) {
+      if (oTask.id == iId) {
+        oTask.status = TaskStatus.TOTEST;
+        oTask.updateTime();
+        return true;
+      }
+    }
+    return false;
   }
 
   // 更新任务状态
@@ -53,10 +63,6 @@ class TaskList {
       }
     }
     return false;
-  }
-
-  toTest(iId) {
-    return this.updateTaskStatus(iId, TaskStatus.TOTEST);
   }
 
   complete(iId) {
@@ -73,8 +79,11 @@ class TaskList {
 
   // 从纯对象中恢复任务清单实例
   static fromJSON(json) {
-    const lTask = json.lTask.map(taskJson => new Task(taskJson.id, taskJson.status, taskJson.lastOperatedTime, taskJson.descriptions));
-    return new TaskList(json.sKey, lTask);
+    const lTask = json.lTask.map(taskJson => {
+      const task = new Task(taskJson.id, taskJson.status, taskJson.lastOperatedTime, taskJson.descriptions);
+      return task;
+    });
+    return new TaskList(json.skey, lTask);
   }
 
   // 计算任务数量
@@ -111,4 +120,4 @@ class TaskList {
 module.exports = {
   TaskStatus,
   TaskList,
-};
+}

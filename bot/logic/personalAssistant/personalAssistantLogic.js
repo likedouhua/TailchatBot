@@ -44,7 +44,7 @@ class PersonalAssistantLogic extends BotLogicBase {
             return;
         }
         const sPath = './config/registerJenkins.json'
-        const oJSON = jsonConfig.getConfigSync(sPath);
+        const oJSON = jsonConfig.getConfigSync(sPath) ?? [];
         oJSON.push({
             "name" : sName,
             "converseId" : message.converseId

@@ -26,8 +26,8 @@ class TailchatBot {
                         sendMessage: (converseId, groupId = null, content, plain = null, meta = null) => {
                             this.sendMessage(converseId, groupId, content, plain, meta);
                         },
-                        relogin : () => {
-                            this.relogin();
+                        relogin : (oCallBack) => {
+                            this.relogin(oCallBack);
                         }
                     });
                     this.lBotLogic.push(oLogic);

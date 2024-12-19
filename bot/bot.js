@@ -9,7 +9,10 @@ class TailchatBot {
             logger.info('require env: url, appId, appSecret');
             process.exit(1);
         }
-
+        this.url = url;
+        this.appId = appId;
+        this.appSecret = appSecret;
+        this.disableMsgpack = disableMsgpack;
         this.login();
 
         this.lBotLogic = []
@@ -43,7 +46,7 @@ class TailchatBot {
         }
         // Windows上用于调试，屏蔽真连接
         if (process.platform != 'win32') {
-            const client = new TailchatWsClient(url, appId, appSecret, disableMsgpack);
+            const client = new TailchatWsClient(this.url, this.appId, this.appSecret, this.disableMsgpack);
             const self = this;
             client.connect().then(async () => {
                 /* 返回的消息格式
@@ -61,7 +64,7 @@ class TailchatBot {
                 __v: 0
                 }
                 */
-                logger.info('Login Success! appId:', appId);
+                logger.info('Login Success! appId:', this.appId);
                 self.bConnect = true;
 
                 client.onMessage((message) => {

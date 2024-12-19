@@ -78,6 +78,14 @@ class TailchatBot {
                 if (oCallBack) {
                     oCallBack();
                 }
+
+                // 20天自动重登
+                if (this.iReloginTimerId) {
+                    clearTimeout(this.iReloginTimerId);
+                }
+                this.iReloginTimerId = setTimeout(() => {
+                    this.relogin();
+                }, 20 * 86400000);
             })
             this.client = client;
         }

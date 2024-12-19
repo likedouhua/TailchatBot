@@ -39,7 +39,7 @@ class PersonalAssistantLogic extends BotLogicBase {
 
     registerJenkins(message, sContent) {
         const sParts = sContent.split('=');
-        const sName = sContent.pop();
+        const sName = sParts.pop();
         if (!sName) {
             return;
         }

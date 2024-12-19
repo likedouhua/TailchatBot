@@ -78,7 +78,8 @@ class TaskListLogic extends BotLogicBase {
         return '未完成【'+String(tCount[TaskStatus.UNFINISHED])+'】、待测试【'+String(tCount[TaskStatus.TOTEST])+'】、已完成【'+String(tCount[TaskStatus.COMPLETED])+'】';
     }
 
-    _saveData(oTaskList) {
+    _saveData(message) {
+        const oTaskList = this._getTaskList(message);
         if(!oTaskList){
             return;
         }
@@ -95,8 +96,7 @@ class TaskListLogic extends BotLogicBase {
         }
         else {
             sOutPut = this.oConfig.reply.openSuccess;
-            const oTaskList = this._getTaskList(message);
-            this._saveData(oTaskList);
+            this._saveData(message);
         }
         this.tCallBack.sendMessage(message.converseId, message.groupId, sOutPut);
     }
@@ -158,7 +158,7 @@ class TaskListLogic extends BotLogicBase {
             }
             const oTaskList = this._getTaskList(message);
             oTaskList.addTask(this.m_tOperate[sOperateKey]);
-            this._saveData(oTaskList);
+            this._saveData(message);
             delete this.m_tOperate[sOperateKey];
             let sOutPut = this.oConfig.reply.createSuccess + os.EOL;
             const tCount = oTaskList.count();
@@ -233,7 +233,7 @@ class TaskListLogic extends BotLogicBase {
             return
         }
         if (oTaskList.toTest(iId)) {
-            this._saveData(oTaskList);
+            this._saveData(message);
 
             let sOutPut = this.oConfig.reply.toTestSuccess + String(iId) + os.EOL;
             const tCount = oTaskList.count();
@@ -260,7 +260,7 @@ class TaskListLogic extends BotLogicBase {
             return
         }
         if (oTaskList.complete(iId)) {
-            this._saveData(oTaskList);
+            this._saveData(message);
             
             let sOutPut = this.oConfig.reply.completeSucess + String(iId) + os.EOL;
             const tCount = oTaskList.count();

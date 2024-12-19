@@ -56,7 +56,7 @@ class TaskList {
   // 更新任务状态
   updateTaskStatus(iId, newStatus) {
     for (const oTask of this.lTask) {
-      if (oTask.id === iId) {
+      if (oTask.id == iId) {
         oTask.status = newStatus;
         oTask.updateTime();
         return true;

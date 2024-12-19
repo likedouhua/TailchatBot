@@ -185,6 +185,7 @@ class TaskListLogic extends BotLogicBase {
         let sOutPut = '';
         const oTaskList = this._getTaskList(message);
         const tTask = oTaskList.getAllTask();
+        sOutPut = sOutPut + '[md]----[/md]';
         sOutPut = sOutPut + '[md]### 未完成【'+ tTask[TaskStatus.UNFINISHED].length + '】[/md]';
         for (const oTask of tTask[TaskStatus.UNFINISHED]) {
             sOutPut = sOutPut + String(oTask.id) + ':' + os.EOL;
@@ -199,7 +200,7 @@ class TaskListLogic extends BotLogicBase {
             for (const sDesc of oTask.descriptions) {
                 sOutPut = sOutPut + sDesc;
             }
-            sOutPut = sOutPut + os.EOL;
+            sOutPut = sOutPut + '[md]----[/md]';
         }
         sOutPut = sOutPut + '[md]### 已完成【'+ tTask[TaskStatus.COMPLETED].length + '】[/md]';
         for (const oTask of tTask[TaskStatus.COMPLETED]) {
@@ -207,7 +208,8 @@ class TaskListLogic extends BotLogicBase {
             for (const sDesc of oTask.descriptions) {
                 sOutPut = sOutPut + sDesc;
             }
-            sOutPut = sOutPut + os.EOL;
+            sOutPut = sOutPut;
+            sOutPut = sOutPut + '[md]----[/md]';
         }
         this.tCallBack.sendMessage(message.converseId, message.groupId, sOutPut);
     }

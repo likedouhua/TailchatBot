@@ -2,9 +2,11 @@
     "symbol" : "#",
     "orderMap" : {
         "获取ID" : "getID",
-        "重登" : "relogin"
+        "重登" : "relogin",
+        "注册jenkins" : "registerJenkins"
     },
     "reply" : {
-        "reloginSuccess" : "重登完毕"
+        "reloginSuccess" : "重登完毕",
+        "registerJenkinsSuccess" : "注册jenkins完毕"
     }
 }

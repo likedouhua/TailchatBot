@@ -10,9 +10,10 @@ class PersonalAssistantLogic extends BotLogicBase {
         if (!message.groupId) { 
             let sContent = message.content;
             for (const sOrder in this.oConfig.orderMap) {
-                if (sContent.includes(this.oConfig.symbol + sOrder)) {
+                let sMark = this.oConfig.symbol + sOrder;
+                if (sContent.includes(sMark)) {
                     let sFunc = this.oConfig.orderMap[sOrder];
-                    this[sFunc](message);
+                    this[sFunc](message, sContent.replace(sMark, '').trim());
                 }
             }
         }
@@ -34,6 +35,22 @@ class PersonalAssistantLogic extends BotLogicBase {
         this.tCallBack.relogin(() => {
             this.tCallBack.sendMessage(message.converseId, null, this.oConfig.reply.reloginSuccess);
         });
+    }
+
+    registerJenkins(message, sContent) {
+        const sParts = sContent.split('=');
+        const sName = sContent.pop();
+        if (!sName) {
+            return;
+        }
+        const sPath = './config/registerJenkins.json'
+        const oJSON = jsonConfig.getConfigSync(sPath);
+        oJSON.push({
+            "name" : sName,
+            "converseId" : message.converseId
+        })
+        jsonConfig.saveConfigSync(sPath, oJSON);
+        this.tCallBack.sendMessage(message.converseId, null, this.oConfig.reply.registerJenkinsSuccess);
     }
 }
 

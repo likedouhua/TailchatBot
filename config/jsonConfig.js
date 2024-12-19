@@ -12,6 +12,17 @@ function getConfigSync(sPath) {
    }
 }
 
+function saveConfigSync(sPath, oJSON) {
+   const sJSON = JSON.stringify(oJSON, null, 2);
+   try {
+      const fs = require('fs');
+      fs.writeFileSync(sPath, sJSON);
+   } catch (error) {
+      console.error(error);
+   }
+}
+
 module.exports = {
    getConfigSync,
+   saveConfigSync,
 }

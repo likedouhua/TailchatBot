@@ -1,10 +1,14 @@
 // handlers/DefaultHandler.js
+const nameList = require('../../config/');
+
 class DefaultHandler {
   constructor(sPath, tCallBack) {
     this.tCallBack = tCallBack;
   }
 
   onPostMessage(receivedMsg) {
+    realId = nameList.find(item => item.name === receivedMsg.converseId);
+    receivedMsg.converseId = realId;
     return this._onPostMessage(receivedMsg);
   }
 

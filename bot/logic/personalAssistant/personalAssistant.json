@@ -3,7 +3,7 @@
     "orderMap" : {
         "获取ID" : "getID",
         "重登" : "relogin",
-        "注册jenkins=" : "registerJenkins"
+        "注册jenkins" : "registerJenkins"
     },
     "reply" : {
         "reloginSuccess" : "重登完毕",

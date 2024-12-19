@@ -1,5 +1,5 @@
 // handlers/DefaultHandler.js
-const nameList = require('../../config/');
+const sPath = './config/registerJenkins.json'
 
 class DefaultHandler {
   constructor(sPath, tCallBack) {
@@ -7,7 +7,8 @@ class DefaultHandler {
   }
 
   onPostMessage(receivedMsg) {
-    realId = nameList.find(item => item.name === receivedMsg.converseId);
+    const oJSON = jsonConfig.getConfigSync(sPath) ?? [];
+    realId = oJSON.find(item => item.name === receivedMsg.converseId);
     receivedMsg.converseId = realId;
     return this._onPostMessage(receivedMsg);
   }
